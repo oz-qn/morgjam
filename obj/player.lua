@@ -4,6 +4,7 @@
 ---@field speed number
 ---@field jump_strength number
 ---@field shape Rect2
+---@field char string
 local Player = {}
 
 ---@param x number

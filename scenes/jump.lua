@@ -1,20 +1,22 @@
 ---@class JumpScene : Scene
 local Jump = {}
 
+local player ---@type Player
+
 function Jump:enter()
-  self.Player = require("obj.player")
-  self.player = self.Player.new(0, 0, 200, 300)
+  _G.Player = require("obj.player")
+  player = Player.new(0, 0, 200, 300)
 end
 
 function Jump:update(dt)
-  self.player:update(dt)
+  player:update(dt)
 end
 
 function Jump:draw()
   local graphics = love.graphics
-  graphics.print("D", self.player.x, self.player.y)
+  graphics.print(player.char, player.x, player.y)
   graphics.setColor(Color.RED)
-  graphics.rectangle("line", self.player.x,  self.player.y + 2, self.player.shape.w, self.player.shape.h)
+  graphics.rectangle("line", player.x,  player.y + 2, player.shape.w, player.shape.h)
   graphics.setColor(Color.WHITE)
 end
 
@@ -22,6 +24,7 @@ function Jump:exit()
 
 end
 
+---@diagnostic disable-next-line
 function Jump:keypressed(key, scancode, isrepeat)
 
 end

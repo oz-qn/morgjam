@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime.version": "Lua 5.4",
+  "diagnostics.severity": {
+    "duplicate-set-field": "Hint"
+  },
+  "format.enable": true,
+  "format.defaultConfig": {
+    "indent_style": "tabs",
+    "indent_size": "4",
+    "insert_final_newline": "true",
+		"space_around_table_field_list": "true",
+		"align_continuous_assign_statement": "true"
+  },
+  "workspace.library": [
+    "${3rd}/love2d/library",
+    "${3rd}/luv/library",
+    "${3rd}/busted/library"
+  ]
+}
+
+

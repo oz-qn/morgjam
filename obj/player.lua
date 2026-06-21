@@ -1,0 +1,33 @@
+---@class Player
+---@field x number
+---@field y number
+---@field speed number
+---@field jump_strength number
+---@field shape Rect2
+local Player = {}
+
+---@param x number
+---@param y number
+---@param speed number
+---@param jump_strength number
+---@return Player
+function Player.new(x, y, speed, jump_strength)
+  local p = {}
+  p.x = x or 0
+  p.y = y or 0
+  p.char = "D"
+  p.shape = Rect2(x, y, 10, 11)
+  p.speed = speed or 200
+  p.jump_strength = jump_strength or 300
+  p.update = Player.update
+  return p
+end
+
+---@param dt number
+function Player:update(dt)
+  local ix, iy = Input.get_vector("a", "d", "w", "s", false)
+  self.x = self.x + ix * self.speed * dt
+  self.y = self.y + iy * self.speed * dt
+end
+
+return Player --[[@as Player]]

@@ -45,13 +45,7 @@ function Jump:draw()
   map:draw()
 
   graphics.print(player.char, player.x, player.y)
-  graphics.setColor(Color.RED)
 
-  self:drawBow(self.physics:getRect(player))
-
-  graphics.setColor(Color.GREEN)
-
-  graphics.setColor(Color.WHITE)
   game_canvas:detach()
 
   local scale = ScreenHeight/game_canvas:getHeight()

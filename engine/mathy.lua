@@ -47,4 +47,11 @@ function _G.normalize(x, y)
   return (x/length), (y/length)
 end
 
-
+---@param condition boolean
+---@param a any
+---@param b any
+---@return any
+function _G.ternary(condition, a, b)
+  local result = condition and a or b
+  return result
+end

@@ -1,12 +1,13 @@
 ---@class JumpScene : Scene
 local Jump = {}
 
-local game_canvas = love.graphics.newCanvas(640,480)
-game_canvas:setFilter("nearest", "nearest", 1)
+local game_canvas ---@type Canvas
 
 local player ---@type Player
 
 function Jump:enter()
+  game_canvas = Canvas.new(640, 480, "nearest")
+  
   _G.Player = require("obj.player")
   player = Player.new(0, 0, 200, 300)
 end
@@ -18,20 +19,22 @@ end
 function Jump:draw()
   local graphics = love.graphics
 
-  graphics.setCanvas(game_canvas)
-    graphics.clear(0, 0, 0, 0)
-    graphics.setColor(0.2, 0.2, 0.2)
-    graphics.rectangle("fill", 0, 0, 640, 480)
-    graphics.setColor(1, 1, 1)
-    graphics.print(player.char, player.x, player.y)
-    graphics.setColor(Color.RED)
-    graphics.rectangle("line", player.x,  player.y + 2, player.shape.w, player.shape.h)
-    graphics.setColor(Color.WHITE)
-  graphics.setCanvas()
+  game_canvas:attach()
+
+  graphics.clear(0, 0, 0, 0)
+  graphics.setColor(0.2, 0.2, 0.2)
+  graphics.rectangle("fill", 0, 0, 640, 480)
+  graphics.setColor(1, 1, 1)
+  graphics.print(player.char, player.x, player.y)
+  graphics.setColor(Color.RED)
+  graphics.rectangle("line", player.x,  player.y + 2, player.shape.w, player.shape.h)
+  graphics.setColor(Color.WHITE)
+
+  game_canvas:detach()
 
   local scale = ScreenHeight/game_canvas:getHeight()
-  local x_offset = (ScreenWidth/2) - (game_canvas:getWidth()/2 * scale)
-  graphics.draw(game_canvas, x_offset, 0, 0, scale, scale)
+  local x= (ScreenWidth/2) - (game_canvas:getWidth()/2 * scale)
+  game_canvas:draw(x, 0, 0, scale, scale)
 end
 
 function Jump:exit()

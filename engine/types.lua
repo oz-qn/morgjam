@@ -8,6 +8,7 @@ function Types.init()
   _G.Circle = require "lib.circle"
   _G.Color = require("lib.color")
   _G.ObjectPool = require("lib.pool")
+  _G.Canvas = require("lib.canvas")
 end
 
 return Types

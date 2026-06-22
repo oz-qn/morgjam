@@ -4,12 +4,19 @@ local Jump = {}
 local game_canvas ---@type Canvas
 
 local player ---@type Player
+local test = {name="b"}
 
 function Jump:enter()
+  _G.current_scene = self
+
+  self.physics = Bump.newWorld()
+
   game_canvas = Canvas.new(640, 480, "nearest")
-  
+
   _G.Player = require("obj.player")
   player = Player.new(0, 0, 200, 300)
+  self.physics:add(player, player.x, player.y, player.shape.w, player.shape.h)
+  self.physics:add(test, 200, 300, 100, 100)
 end
 
 function Jump:update(dt)
@@ -27,14 +34,22 @@ function Jump:draw()
   graphics.setColor(1, 1, 1)
   graphics.print(player.char, player.x, player.y)
   graphics.setColor(Color.RED)
-  graphics.rectangle("line", player.x,  player.y + 2, player.shape.w, player.shape.h)
-  graphics.setColor(Color.WHITE)
 
+  self:drawBow(self.physics:getRect(player))
+
+  graphics.setColor(Color.GREEN)
+  self:drawBow(self.physics:getRect(test))
+
+  graphics.setColor(Color.WHITE)
   game_canvas:detach()
 
   local scale = ScreenHeight/game_canvas:getHeight()
-  local x= (ScreenWidth/2) - (game_canvas:getWidth()/2 * scale)
-  game_canvas:draw(x, 0, 0, scale, scale)
+  local x_offset= (ScreenWidth/2) - (game_canvas:getWidth()/2 * scale)
+  game_canvas:draw(x_offset, 0, 0, scale, scale)
+end
+
+function Jump:drawBow(x, y, w, h)
+  love.graphics.rectangle("line", x, y, w, h)
 end
 
 function Jump:exit()

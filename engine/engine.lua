@@ -7,6 +7,7 @@ function Engine:init()
   end
   _G.Config = require("engine.config")
 
+  _G.Bump = require("lib.bump")
   _G.Physics = require "engine.physics"
 
   _G.Types = require "engine.types"

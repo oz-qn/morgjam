@@ -12,14 +12,12 @@ function Jump:enter()
 
   _G.current_scene = self
   map = sti("maps/test.lua")
-  self.walls = {}
 
   self.physics = Bump.newWorld()
 
   if map.layers["Colliders"] then
     for i, obj in pairs(map.layers["Colliders"].objects) do
-      self.walls[i] = {id = i}
-      self.physics:add(obj, obj.x, obj.y, obj.width, obj.height)
+      self.physics:add({id = i}, obj.x, obj.y, obj.width, obj.height)
     end
   end
 
@@ -59,6 +57,8 @@ function Jump:draw()
   local scale = ScreenHeight/game_canvas:getHeight()
   local x_offset= (ScreenWidth/2) - (game_canvas:getWidth()/2 * scale)
   game_canvas:draw(x_offset, 0, 0, scale, scale)
+
+  graphics.print(love.timer.getFPS())
 end
 
 function Jump:drawBow(x, y, w, h)

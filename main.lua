@@ -1,5 +1,6 @@
 function love.load()
   love.window.setTitle("ozqngine")
+  love.graphics.setDefaultFilter("nearest", "nearest", 1)
 
   _G.Engine = require "engine.engine"
   Engine:init()

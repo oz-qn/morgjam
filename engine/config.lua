@@ -2,8 +2,9 @@
 local Config = {}
 
 Config.window = {}
-Config.window.x = 640
-Config.window.y = 480
+Config.window.x = 1920
+Config.window.y = 1080
+Config.window.fullscreen = true
 
 Config.use_keyboard = true
 

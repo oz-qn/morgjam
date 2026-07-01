@@ -24,7 +24,8 @@ function Jump:enter()
   game_canvas = Canvas.new(640, 480, "nearest")
 
   _G.Player = require("obj.player")
-  player = Player.new(0, 0, 200, 300)
+  player = Player.new(50, 0, 200, 300)
+  player:snap_to_floor()
   self.physics:add(player, player.x, player.y, player.shape.w, player.shape.h)
 end
 

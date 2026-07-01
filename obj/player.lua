@@ -24,7 +24,7 @@ function Player.new(x, y, speed, jump_strength)
   p.vx = 0
   p.vy = 0
   p.char = "P"
-  p.shape = Rect2(x, y, 10, 11)
+  p.shape = Rect2(x, y, 10, 12)
   p.speed = speed or 300
   p.jump_strength = jump_strength or 300
   return setmetatable(p, Player)
@@ -52,6 +52,14 @@ function Player:is_on_floor()
     return true
   end
   return false
+end
+
+function Player:snap_to_floor()
+  
+  local items, len = Physics.raycast(current_scene.physics, self.x, self.y, 50, ScreenHeight)
+  if len > 0 then
+    self.y = items[1].y1- self.shape.h
+  end
 end
 
 return Player --[[@as Player]]

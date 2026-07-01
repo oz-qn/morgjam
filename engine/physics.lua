@@ -28,4 +28,8 @@ function Physics:check_collision(collider)
   return false, nil
 end
 
+function Physics.raycast(world, startx, starty, endx, endy, filter)
+  return world:querySegmentWithCoords(startx, starty, endx, endy, filter or nil)
+end
+
 return Physics

@@ -9,7 +9,7 @@ Physics.Layers = {
 
 Physics.colliders = {}
 
-for k, v in pairs(Physics.Layers) do
+for _, v in pairs(Physics.Layers) do
   Physics.colliders[v] = {}
 end
 
@@ -28,6 +28,14 @@ function Physics:check_collision(collider)
   return false, nil
 end
 
+---@param world table
+---@param startx integer
+---@param starty integer
+---@param endx integer
+---@param endy integer
+---@param filter function | nil
+---@return table
+---@return integer
 function Physics.raycast(world, startx, starty, endx, endy, filter)
   return world:querySegmentWithCoords(startx, starty, endx, endy, filter or nil)
 end

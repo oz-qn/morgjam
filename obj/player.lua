@@ -20,7 +20,7 @@ function Player.new(x, y, speed, jump_strength)
   local p = {}
   p.x = x or 0
   p.y = y or 0
-  p.gravity = 980
+  p.gravity = 200
   p.vx = 0
   p.vy = 0
   p.char = "P"
@@ -41,21 +41,26 @@ function Player:update(dt)
       self.vy = -self.jump_strength
     end
   end
- self.x, self.y = current_scene.physics:move(self, self.x + self.vx, self.y + self.vy * dt)
+  local cols, len
+  self.x, self.y, cols, len = current_scene.physics:move(self, self.x + self.vx, self.y + self.vy * dt)
+
+  if len > 0 then
+    for _, value in pairs(cols) do
+      if value.normal.y == 1 then
+        self.vy = 0
+      end
+    end
+  end
 end
 
 ---@return boolean
 function Player:is_on_floor()
   ---@diagnostic disable-next-line
   local actualX, actualY, cols, len = current_scene.physics:check(self, self.x, self.y+0.1)
-  if len~=0 then
-    return true
-  end
-  return false
+  return len ~= 0
 end
 
 function Player:snap_to_floor()
-  
   local items, len = Physics.raycast(current_scene.physics, self.x, self.y, 50, ScreenHeight)
   if len > 0 then
     self.y = items[1].y1- self.shape.h

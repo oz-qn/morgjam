@@ -6,6 +6,7 @@ function Engine:init()
     print("INFO: LuaJit is enabled.")
   end
   _G.Config = require("engine.config")
+  _G.Utils = require("engine.utils")
 
   _G.Bump = require("lib.bump")
   _G.Physics = require "engine.physics"

@@ -1,16 +1,13 @@
-local module = {}
-
 ---@class Signal
 ---@field bindings function[]
-
 local Signal = {}
 Signal.__index = Signal
 
-Signal.bindings = {}
-
 ---@return Signal
 function Signal.new()
-  return setmetatable({}, Signal)
+  local s = {}
+  s.bindings = {}
+  return setmetatable(s, Signal)
 end
 
 function Signal:connect(binding)
@@ -26,8 +23,8 @@ function Signal:disconnect(binding)
 end
 
 function Signal:emit(...)
-  for i in ipairs(self.bindings) do
-    self.bindings[i](...)
+  for _, v in ipairs(self.bindings) do
+    v(...)
   end
 end
 
@@ -37,7 +34,4 @@ function Signal:clear()
   end
 end
 
----@return Signal
-module.new = Signal.new
-
-return setmetatable(module,{__call = Signal.new}) ---@return Signal
+return Signal --[[@as Signal]]
